@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
   build:
-    name: build
+    name: Snow Desktop
     runs-on: generic
     steps:
       - name: install git
