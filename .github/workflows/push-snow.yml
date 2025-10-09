@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: install git
         run: |
-          sudo apt-get update && sudo apt-get install -y git-core
+          sudo apt-get update && sudo apt-get install -y git-core jq
       - name: setup-mkosi
         uses: systemd/mkosi@main
       - name: checkout repo
@@ -44,6 +44,11 @@ jobs:
           cp $HOME/secrets/mkosi.key .
           chmod 600 ./mkosi.key
           mkosi -B
+      - name: clean up output
+        run: |
+          rm mkosi.output/initrd
+          rm mkosi.output/initrd.cpio.zst
+          ./scripts/sums.sh
       - name: scp output
         uses: appleboy/scp-action@v1
         with:
