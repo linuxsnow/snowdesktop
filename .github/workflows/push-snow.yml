@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: install git
         run: |
-          apt-get update && apt-get install -y git-core
+          sudo apt-get update && sudo apt-get install -y git-core
       - name: setup-mkosi
         uses: systemd/mkosi@main
       - name: checkout repo
