@@ -55,5 +55,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSHUSER }}
           key: ${{ secrets.KEY }}
+          strip_components: 1
           source: "mkosi.output/*"
           target: /mnt/fast/snow/
