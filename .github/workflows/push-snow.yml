@@ -43,4 +43,4 @@ jobs:
           cp $HOME/secrets/mkosi.crt .
           cp $HOME/secrets/mkosi.key .
           chmod 600 ./mkosi.key
-          mkosi build --compress-output=yes --dependency=base
+          mkosi -B
