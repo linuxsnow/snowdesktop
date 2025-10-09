@@ -13,58 +13,6 @@ The SnowLinux image is built using [mkosi](https://github.com/systemd/mkosi).
 You will need to install the current main branch of mkosi to build current
 SnowLinux images.
 
-To update the system after installation, you clone the SnowLinux repository
-or your fork of it, make sure `mkosi.local.conf` is configured to your liking and
-run `mkosi -B -ff sysupdate -- update --reboot` which will update the system using
-`systemd-sysupdate` and then reboot.
-
-## Using the OBS profile to fetch a newer systemd
-
-Sometimes SnowLinux adopts systemd features as soon as they get merged into
-systemd without waiting for an official release. That's why we recommend
-enabling the `obs` profile to enable the systemd repositories on OBS
-(https://software.opensuse.org//download.html?project=system%3Asystemd&package=systemd)
-containing systemd packages which are built every day from systemd's git main
-branch.
-
-To enable the `obs` profile, add the following to `mkosi.local.conf`:
-
-```conf
-[Config]
-Profiles=obs
-```
-
-The `obs` profile is required until debian's `systemd-repart` reaches a 258 version.
-
-## Building systemd from source
-
-As an alternative to using the `obs` profile, you can build systemd from source:
-
-```sh
-git clone https://github.com/systemd/systemd
-cd systemd
-mkosi -f sandbox -- meson setup build
-mkosi -f sandbox -- meson compile -C build
-mkosi -t none -f
-```
-
-Then write the following to `mkosi.local.conf` in the SnowLinux repository to
-use the artifacts from the systemd repository built by mkosi in SnowLinux:
-
-```conf
-[Content]
-VolatilePackageDirectories=../systemd/build/mkosi.builddir/<distribution>~<release>~<arch>
-
-[Build]
-ExtraSearchPaths=../systemd/build
-```
-
-Make sure the distribution and release in `mkosi.local.conf` are identical in the
-systemd checkout and the SnowLinux checkout.
-
-To build a newer systemd, run `git pull` in the systemd repository followed by
-`mkosi -f sandbox -- meson compile -C build` and `mkosi -t none`.
-
 ## Signing keys
 
 SnowLinux images are signed for Secure Boot with the user's keys. To generate a new key,
@@ -98,7 +46,7 @@ Linux system as described above. Then, burn it to the USB drive with
 the system onto which you'd like to install SnowLinux and boot into the USB
 drive via the firmware. Then, boot into the "Installer" UKI profile. When you
 end up in the root shell, run
-`systemd-repart --dry-run=no --empty=force --defer-partitions=swap,root,home /dev/<drive>`
+`snowctl install`
 to install SnowLinux to the system's drive. Finally, reboot into the target
 drive (not the USB) and the regular profile (not the installer one) to complete
 the installation.
@@ -117,32 +65,10 @@ found with `modinfo`. If you experience missing firmwares, you should report
 this to the module maintainer. `FirmwareInclude=` can be added in `mkosi.local.conf`
 to include the firmware regardless of whether a module depends on it.
 
-## Configuring systemd-homed after installation
-
-After installing SnowLinux and logging into your systemd-homed managed user,
-run the following to configure systemd-homed for the best experience:
-
-```sh
-homectl update \
-    --auto-resize-mode=off \
-    --disk-size=max \
-    --luks-discard=on"
-```
-
-Disabling the auto resize mode avoids slow system boot and shutdown. Enabling
-LUKS discard makes sure the home directory doesn't become inaccessible because
-systemd-homed is unable to resize the home directory.
-
-## Default root password and user when booting in a virtual machine
-
-If you boot SnowLinux in a virtual machine using `mkosi vm`, the root password
-is automatically set to `SnowLinux` and a default user `SnowLinux` with password
-`SnowLinux` is created as well.
-
 ## Software and Tool Installation
 
 - snap preinstalled
 - flatpak preinstalled
 - docker preinstalled
 - brew (user installable)
-- systemd-sysext extensions
+- systemd-sysext extensions (not started)
