@@ -58,3 +58,10 @@ jobs:
           strip_components: 1
           source: "mkosi.output/*"
           target: /mnt/fast/snow/
+      - name: concatenate shasums
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSHUSER }}
+          key: ${{ secrets.KEY }}
+          script: "cat /mnt/fast/snow/v*.SHA256SUMS > /mnt/fast/snow/SHA256SUMS"
