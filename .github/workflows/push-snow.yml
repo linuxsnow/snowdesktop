@@ -27,6 +27,9 @@ jobs:
     name: build
     runs-on: generic
     steps:
+      - name: install git
+        run: |
+          apt-get update && apt-get install -y git-core
       - name: setup-mkosi
         uses: systemd/mkosi@main
       - name: checkout repo
