@@ -64,4 +64,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSHUSER }}
           key: ${{ secrets.KEY }}
-          script_path: /mnt/fast/snow/scripts/releases.sh
+          script_path: scripts/releases.sh
