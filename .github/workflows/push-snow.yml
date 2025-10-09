@@ -64,4 +64,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSHUSER }}
           key: ${{ secrets.KEY }}
-          script: "cat /mnt/fast/snow/v*.SHA256SUMS > /mnt/fast/snow/SHA256SUMS"
+          script_path: /mnt/fast/snow/scripts/releases.sh
