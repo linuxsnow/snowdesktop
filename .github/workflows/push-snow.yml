@@ -44,3 +44,10 @@ jobs:
           cp $HOME/secrets/mkosi.key .
           chmod 600 ./mkosi.key
           mkosi -B
+      - name: scp output
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          key: ${{ secrets.KEY }}
+          source: "mkosi.output/*"
+          target: /mnt/fast/snow/
