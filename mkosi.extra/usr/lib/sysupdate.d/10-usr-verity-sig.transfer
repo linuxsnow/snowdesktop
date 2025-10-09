@@ -2,7 +2,7 @@
 
 [Transfer]
 ProtectVersion=%A
-Verify=networkd
+Verify=no
 
 [Source]
 Type=url-file
