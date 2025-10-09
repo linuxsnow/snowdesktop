@@ -34,3 +34,13 @@ jobs:
         uses: systemd/mkosi@main
       - name: checkout repo
         uses: actions/checkout@main
+      - name: Decrypt large secret
+        run: ./scripts/decrypt_secrets.sh
+        env:
+          SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
+      - name: build
+        run: |
+          cp $HOME/secrets/mkosi.crt .
+          cp $HOME/secrets/mkosi.key .
+          chmod 600 ./mkosi.key
+          mkosi build --compress-output=yes --dependency=base
