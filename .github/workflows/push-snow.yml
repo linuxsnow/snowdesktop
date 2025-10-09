@@ -48,6 +48,7 @@ jobs:
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSHUSER }}
           key: ${{ secrets.KEY }}
           source: "mkosi.output/*"
           target: /mnt/fast/snow/
