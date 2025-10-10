@@ -10,3 +10,7 @@ cp --archive --no-target-directory --update=none "$BUILDROOT/etc" "$BUILDROOT/us
 # incus puts things in opt
 mkdir -p "$BUILDROOT/usr/share/factory/opt/incus"
 cp --archive --no-target-directory --update=none "$BUILDROOT/opt/incus" "$BUILDROOT/usr/share/factory/opt/incus"
+
+# Copy /var/lib/flatpak into factory dir for tmpfiles.d (see tmpfiles.d docs).
+[ -d "$BUILDROOT/usr/share/factory/var/lib" ] || mkdir --parents "$BUILDROOT/usr/share/factory/var/lib"
+cp --archive --no-target-directory --update=all "$BUILDROOT/var/lib/flatpak" "$BUILDROOT/usr/share/factory/var/lib/flatpak"

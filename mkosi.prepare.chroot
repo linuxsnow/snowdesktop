@@ -1,0 +1,18 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+# SPDX-FileCopyrightText: 2023 Harald Sitter <sitter@kde.org>
+
+# If mkosi.prepare (PrepareScripts=) exists, it is first called with the final
+# argument, right after the software packages are installed. It is called a
+# second time with the build command line parameter, right after the build
+# packages are installed and the build overlay mounted on top of the image's
+# root directory .
+
+set -ex
+
+echo "$@"
+
+if [ "$1" = "final" ]; then
+  env
+  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+fi
