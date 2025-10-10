@@ -85,3 +85,4 @@ download_flatpaks() {
     flatpak config --unset languages
 }
 download_flatpaks
+
