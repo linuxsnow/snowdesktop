@@ -11,11 +11,4 @@ cp --archive --no-target-directory --update=none "$BUILDROOT/etc" "$BUILDROOT/us
 mkdir -p "$BUILDROOT/usr/share/factory/opt/incus"
 cp --archive --no-target-directory --update=none "$BUILDROOT/opt/incus" "$BUILDROOT/usr/share/factory/opt/incus"
 
-# Copy /var/lib/flatpak into factory dir for tmpfiles.d (see tmpfiles.d docs).
-[ -d "$BUILDROOT/usr/share/factory/var/lib" ] || mkdir --parents "$BUILDROOT/usr/share/factory/var/lib"
-cp --archive --no-target-directory --update=all "$BUILDROOT/var/lib/flatpak" "$BUILDROOT/usr/share/factory/var/lib/flatpak"
-
-rm -rf "$BUILDROOT/usr/lib/firmware"
-## TODO - this pulls in ALL THE firmware, need a sensible list of things to prune
-git clone https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git "$BUILDROOT/usr/lib/firmware" --depth 1
-rm -rf "$BUILDROOT/usr/lib/firmware/.git"
+echo "{\"ip-forward-no-drop\": true }" > "$BUILDROOT/usr/share/factory/etc/docker/daemon.json"
