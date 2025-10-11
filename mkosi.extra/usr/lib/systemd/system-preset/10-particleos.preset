@@ -13,6 +13,9 @@ disable systemd-network-wait-online.service
 enable NetworkManager.service
 enable NetworkManager-wait-online.service
 
+#flatpak installer
+enable flatpak-first-install.service
+
 # These are not enabled by default in the default systemd preset.
 enable systemd-timesyncd.service
 disable systemd-homed-firstboot.service
