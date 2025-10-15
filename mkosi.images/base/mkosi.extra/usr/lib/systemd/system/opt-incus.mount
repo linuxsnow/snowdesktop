@@ -1,0 +1,11 @@
+[Unit]
+Before=incus.socket
+
+[Mount]
+What=/usr/share/factory/opt/incus
+Where=/opt/incus
+Options=bind
+Type=none
+
+[Install]
+WantedBy=incus.socket
