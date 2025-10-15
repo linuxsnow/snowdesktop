@@ -25,7 +25,11 @@ func FirstBootRoot() error {
 		return err
 	}
 	fmt.Println("Graphical Login enabled successfully.")
-
+	err = installBazaar()
+	if err != nil {
+		return err
+	}
+	fmt.Println("Bazaar installed successfully.")
 	return nil
 }
 
@@ -58,6 +62,25 @@ func firstUser() error {
 		"--mute-console=yes",
 		"--uid=1000",
 		"--member-of=adm,systemd-journal,sudo,docker,incus-admin",
+	)
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+	cmd.Stdin = os.Stdin
+	return cmd.Run()
+
+}
+
+func installBazaar() error {
+	// flatpak install --or-update --noninteractive --assumeyes flathub "$flatpak"
+
+	cmd := exec.Command(
+		"flatpak",
+		"install",
+		"--or-update",
+		"--noninteractive",
+		"--assumeyes",
+		"flathub",
+		"io.github.kolunmi.Bazaar",
 	)
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
