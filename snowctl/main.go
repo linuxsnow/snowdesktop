@@ -53,18 +53,30 @@ func main() {
 	}
 	cmd.AddCommand(installer)
 
-	firstrun := &cobra.Command{
-		Use:   "firstrun",
-		Short: "First-run configuration for SNOW",
+	firstboot := &cobra.Command{
+		Use:   "firstboot",
+		Short: "Create the first user and enable graphical login (requires root)",
+		Run: func(c *cobra.Command, _ []string) {
+			if err := firstrun.FirstBootRoot(); err != nil {
+				c.Println("Error configuring SNOW:", err)
+			} else {
+				c.Println("SNOW configured successfully. Reboot to continue.")
+			}
+		},
+	}
+	cmd.AddCommand(firstboot)
+	firstuser := &cobra.Command{
+		Use:   "setup",
+		Short: "First-run configuration for SNOW user",
 		Run: func(c *cobra.Command, _ []string) {
 			if err := firstrun.Configure(); err != nil {
 				c.Println("Error configuring SNOW:", err)
 			} else {
-				c.Println("SNOW configured successfully.")
+				c.Println("SNOW configured successfully. ")
 			}
 		},
 	}
-	cmd.AddCommand(firstrun)
+	cmd.AddCommand(firstuser)
 	feature := &cobra.Command{
 		Use:     "feature [command] [flags] [args]",
 		Aliases: []string{"f"},

@@ -18,7 +18,7 @@ disable flatpak-first-install.service
 
 # These are not enabled by default in the default systemd preset.
 enable systemd-timesyncd.service
-enable systemd-homed-firstboot.service
+disable systemd-homed-firstboot.service
 
 # Disable avahi in favor of resolved
 disable avahi.*
