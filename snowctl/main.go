@@ -82,9 +82,6 @@ func main() {
 		Aliases: []string{"f"},
 		Short:   "Manage features",
 		GroupID: "features",
-		Run: func(c *cobra.Command, _ []string) {
-			other()
-		},
 	}
 	cmd.AddCommand(feature)
 	feature.AddCommand(&cobra.Command{
@@ -94,13 +91,7 @@ func main() {
 snowctl feature list
 `,
 		RunE: func(c *cobra.Command, _ []string) error {
-			cmd.Println("Working...")
-			select {
-			case <-time.After(time.Second * 5):
-				cmd.Println("Done!")
-			case <-c.Context().Done():
-				return c.Context().Err()
-			}
+			list()
 			return nil
 		},
 	})
@@ -110,7 +101,7 @@ snowctl feature list
 		Short:   "Manage extensions",
 		GroupID: "extensions",
 		Run: func(c *cobra.Command, _ []string) {
-			other()
+			list()
 		},
 	}
 	cmd.AddCommand(ext)
@@ -142,7 +133,7 @@ snowctl ext list
 	}
 }
 
-func other() {
+func list() {
 
 	ff, err := features.ListFeatures()
 	if err != nil {
