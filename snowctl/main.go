@@ -8,6 +8,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/bketelsen/snow/snowctl/internal/commands/firstrun"
 	"github.com/bketelsen/snow/snowctl/internal/commands/install"
 	"github.com/bketelsen/snow/snowctl/internal/features"
 	"github.com/charmbracelet/fang"
@@ -51,6 +52,19 @@ func main() {
 		},
 	}
 	cmd.AddCommand(installer)
+
+	firstrun := &cobra.Command{
+		Use:   "firstrun",
+		Short: "First-run configuration for SNOW",
+		Run: func(c *cobra.Command, _ []string) {
+			if err := firstrun.Configure(); err != nil {
+				c.Println("Error configuring SNOW:", err)
+			} else {
+				c.Println("SNOW configured successfully.")
+			}
+		},
+	}
+	cmd.AddCommand(firstrun)
 	feature := &cobra.Command{
 		Use:     "feature [command] [flags] [args]",
 		Aliases: []string{"f"},

@@ -18,9 +18,8 @@ clean:
 
 
 launch:
-  ./scripts/launch.sh
+  ./scripts/launch-incus.sh
 
 snowctl:
   cd snowctl && go build -o snowctl .
-  mkdir -p mkosi.extra/usr/local/bin/
-  cp snowctl/snowctl mkosi.extra/usr/local/bin/
+

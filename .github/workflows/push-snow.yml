@@ -48,6 +48,7 @@ jobs:
         run: |
           rm mkosi.output/initrd
           rm mkosi.output/initrd.cpio.zst
+          rm -rf mkosi.output/base
           ./scripts/sums.sh
       - name: scp output
         uses: appleboy/scp-action@v1

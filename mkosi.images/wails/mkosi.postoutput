@@ -1,0 +1,13 @@
+#!/bin/bash
+# SPDX-License-Identifier: LGPL-2.1-or-later
+set -e
+KEYPACKAGE=NIL
+KEYVERSION=NIL
+
+# find the first file in the output directory that matches the pattern "sysext-dev*.manifest"
+MANIFEST_FILE=$(find "$OUTPUTDIR" -maxdepth 1 -type f -name "SNOW*_wails.manifest" | head -n 1)
+echo "Found manifest file: $MANIFEST_FILE"
+
+
+cat "$MANIFEST_FILE" | jq --arg KEYPACKAGE ${KEYPACKAGE} --arg KEYVERSION ${KEYVERSION} -c '.config.key_package=$KEYPACKAGE | .config.key_version=$KEYVERSION' > "$MANIFEST_FILE.tmp"
+mv "$MANIFEST_FILE.tmp" "$MANIFEST_FILE"
