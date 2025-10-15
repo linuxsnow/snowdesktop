@@ -3,3 +3,4 @@
 enable ssh-agent.service
 enable p11-kit-server.service
 enable pipewire.service
+enable gnome-remote-desktop
