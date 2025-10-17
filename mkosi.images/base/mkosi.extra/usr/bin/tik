@@ -1,0 +1,73 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright 2023-2024 SUSE LLC
+# SPDX-FileCopyrightText: Copyright 2023-2024 Richard Brown
+
+# Define variables
+# Style notes
+# lowercase variables = internal, not expected to be defined by users
+# uppercase variables = user facing, expected to be set by config
+
+tik_log=~/tik.log
+tik_dir=/usr/lib/tik
+tik_module="tik"
+
+# Read libraries
+. ${tik_dir}/lib/tik-functions
+
+# Start logging
+exec 2> >(exec tee -i -a "${tik_log}" >&2)
+logging=true
+log "[START] $0"
+
+# Check for debug mode
+if [[ $1 == "--debug" ]]; then
+    debug=1
+fi
+
+# Check if graphical display is available
+XDG_SESSION="${XDG_SESSION_TYPE:=unspecified}"
+if [ $XDG_SESSION_TYPE = "wayland" ] || [ $XDG_SESSION_TYPE = "x11" ] ; then
+    gui=true
+else
+    gui=false
+fi
+
+# Read configuration files, /usr first, then /etc
+. ${tik_dir}/config
+. ${TIK_CUSTOM_DIR}/config
+
+# Check essential paths exist
+if [ ! -d "${TIK_IMG_DIR}" ]; then
+    error "${TIK_IMG_DIR} does not exist"
+fi
+
+cleanup() {
+    retval=$?
+    log "[STOP][${retval}] $0"
+    if [ "${debug}" == "1" ]; then
+        d --timeout 5 --info --no-wrap --text="<b>Test Succeeded:</b>\n\nHave a nice day!"
+    elif [ "${retval}" == "0" ]; then
+        d --timeout 5 --info --no-wrap --title="Installation Complete!" --text="${TIK_OS_NAME} has been installed.\n\n<b>System is rebooting</b>"
+        prun systemctl reboot --force
+    else
+        d --error --no-wrap --title="Installation Failed" --text="Please file a bug report at <tt>${TIK_BUG_URL}</tt>\n\nPlease include the <tt>tik.log</tt> file\nIt can be found on the IGNITION partition on this USB Stick\n\n<b>System is shutting down</b>"
+        cp -a ${tik_log} /ignition
+        prun systemctl poweroff --force
+    fi
+}
+trap cleanup EXIT
+
+load_modules "pre"
+load_modules "pre" "custom"
+
+get_disk
+get_img
+dump_image "${TIK_INSTALL_IMAGE}" "${TIK_INSTALL_DEVICE}"
+reread_partitiontable
+
+load_modules "post"
+load_modules "post" "custom"
+
+wipe_keyfile
+#set_boot_target
