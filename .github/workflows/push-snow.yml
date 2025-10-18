@@ -45,8 +45,8 @@ jobs:
           mkosi -B
       - name: clean up output
         run: |
-          rm mkosi.output/initrd
-          rm mkosi.output/initrd.cpio.zst
+          rm -f mkosi.output/initrd
+          rm -f mkosi.output/initrd.cpio.zst
           rm -rf mkosi.output/base
           ./scripts/sums.sh
       - name: scp output
