@@ -1,6 +1,11 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
+enable pipewire.socket
+enable wireplumber.service
+
+enable pipewire-pulse.socket
+
 enable ssh-agent.service
 enable p11-kit-server.service
 enable pipewire.service
-enable gnome-remote-desktop
+enable gnome-remote-desktop.service
