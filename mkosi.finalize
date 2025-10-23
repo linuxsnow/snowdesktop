@@ -15,4 +15,4 @@ echo "{\"ip-forward-no-drop\": true }" > "$BUILDROOT/usr/share/factory/etc/docke
 
 # Adjust default settings for adduser to include incus and docker groups automatically
 sed -i '/^#ADD_EXTRA_GROUPS=0$/c\ADD_EXTRA_GROUPS=1' "$BUILDROOT/usr/share/factory/etc/adduser.conf"
-sed -i '/^#EXTRA_GROUPS="users"$/c\EXTRA_GROUPS="users docker incus"' "$BUILDROOT/usr/share/factory/etc/adduser.conf"
+sed -i '/^#EXTRA_GROUPS="users"$/c\EXTRA_GROUPS="users docker incus-admin"' "$BUILDROOT/usr/share/factory/etc/adduser.conf"
