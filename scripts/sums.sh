@@ -18,3 +18,13 @@ for file in "$OUTPUTDIR"/*.SHA256SUMS; do
     echo "Processing $file"
     cat "$file" >> "$OUTPUTDIR/v${SNOWVERSION}.SHA256SUMS"
 done
+pushd "$OUTPUTDIR"
+
+image_file=$(find . -maxdepth 1 -name "SnowLinux_*x86-64.raw" | head -n 1)
+if [ -z "$image_file" ]; then
+    echo "No image file found"
+    exit 1
+fi
+ln -s "$image_file" "Latest_SnowLinux_x86-64.raw"
+
+popd
