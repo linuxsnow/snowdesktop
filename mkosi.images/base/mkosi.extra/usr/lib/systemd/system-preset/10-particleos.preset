@@ -20,7 +20,7 @@ disable flatpak-first-install.service
 enable systemd-timesyncd.service
 disable systemd-homed-firstboot.service
 
-enable avahi.*
+enable avahi-daemon.*
 
 enable pcscd.service
 enable power-profiles-daemon.service
