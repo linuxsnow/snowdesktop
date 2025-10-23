@@ -1,2 +1,3 @@
 # Enables the D-Bus service unconditionally for all user sessions
 enable dbus.socket
+enable dconf.service

@@ -1,0 +1,2 @@
+disable gnome-remote-desktop-handover.service
+disable gnome-remote-desktop-headless.service
