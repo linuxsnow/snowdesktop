@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Check for GH_TOKEN
+if [[ -n "${GH_TOKEN:-}" ]]; then
+  echo "Using GH_TOKEN for authentication." >&2
+  AUTH_HEADER="Authorization: Bearer $GH_TOKEN"
+else
+  echo "GH_TOKEN secret not found. Using unauthenticated requests." >&2
+  AUTH_HEADER=""
+fi
+
+URL="$1"
+shift
+OPTIONS=("$@")
+
+if [[ -n "$AUTH_HEADER" ]]; then
+  curl --retry 3 --retry-delay 2 --retry-max-time 60 -sSL -H "$AUTH_HEADER" "${OPTIONS[@]}" "$URL"
+else
+  curl --retry 3 --retry-delay 2 --retry-max-time 60 -sSL "${OPTIONS[@]}" "$URL"
+fi

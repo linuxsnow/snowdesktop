@@ -37,6 +37,10 @@ jobs:
         run: ./scripts/decrypt_secrets.sh
         env:
           SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
+      - name: Pull latest brew tap
+        run : |
+          mkdir -p mkosi.extra/usr/share
+          ./scripts/ghcurl "$(./scripts/ghcurl https://api.github.com/repos/linuxsnow/homebrew-tap/releases/latest | jq -r '.assets[] | select(.name| test(".*-x86_64.tar.zst$")).browser_download_url')" -Lo mkosi.extra/usr/share/homebrew.tar.zst
       - name: build
         run: |
           cp $HOME/secrets/mkosi.crt .
