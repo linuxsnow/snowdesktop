@@ -1,0 +1,50 @@
+hooks:
+  - id: handle-vscode
+    when: before-transaction
+    dialogs:
+      - id: vscode-warning
+        title: >-
+          Visual Studio Code is not supported in this format
+        # If true, render inline markup commands in body; see
+        # https://docs.gtk.org/Pango/pango_markup.html
+        body-use-markup: true
+        body: >-
+          Visual Studio Code is not officially supported on Flatpak. We
+          recommend using the Brew package for SNOW Linux.
+        # Determines which option will be assumed if the user hits the
+        # escape key or otherwise cancels the dialog
+        default-response-id: cancel
+        options:
+          - id: cancel
+            string: "Cancel"
+          - id: install-brew
+            string: "Install Visual Studio Code via Brew"
+            # can be "destructive" or "suggested" or omit for no
+            # styling
+            style: suggested
+    shell: exec /usr/libexec/bazaar/vscode-hook.sh
+  - id: handle-jetbrains
+    when: before-transaction
+    dialogs:
+      - id: jetbrains-warning
+        title: >-
+          Jetbrains IDEs are not supported in this format
+        # If true, render inline markup commands in body; see
+        # https://docs.gtk.org/Pango/pango_markup.html
+        body-use-markup: true
+        body: >-
+          This is a <a href="https://www.jetbrains.com/">Jetbrains</a>
+          application and is not officially supported on Flatpak. We
+          recommend using the Toolbox app to manage Jetbrains IDEs.
+        # Determines which option will be assumed if the user hits the
+        # escape key or otherwise cancels the dialog
+        default-response-id: cancel
+        options:
+          - id: cancel
+            string: "Cancel"
+          - id: goto-web
+            string: "Download Jetbrains Toolbox"
+            # can be "destructive" or "suggested" or omit for no
+            # styling
+            style: suggested
+    shell: exec /usr/libexec/bazaar/jetbrains-hook.sh
