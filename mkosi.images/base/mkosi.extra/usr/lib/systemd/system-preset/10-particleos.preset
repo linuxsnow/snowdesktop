@@ -42,3 +42,6 @@ enable sshd-keygen.service
 # snap
 enable snapd.socket
 enable snapd.apparmor.service
+
+# disable auto-reboot after update
+disable systemd-sysupdate-reboot.timer
