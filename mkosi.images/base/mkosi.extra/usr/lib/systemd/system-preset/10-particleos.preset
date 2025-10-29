@@ -3,7 +3,7 @@
 # Make sure we have networking available.
 disable systemd-networkd.service
 disable systemd-networkd.socket
-enable systemd-networkd-varlink.socket
+disable systemd-networkd-varlink.socket
 disable systemd-resolved.service
 disable systemd-network-wait-online.service
 
