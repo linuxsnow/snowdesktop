@@ -33,6 +33,8 @@ jobs:
         uses: systemd/mkosi@main
       - name: checkout repo
         uses: actions/checkout@main
+        with:
+          submodules: recursive
       - name: Decrypt large secret
         run: ./scripts/decrypt_secrets.sh
         env:

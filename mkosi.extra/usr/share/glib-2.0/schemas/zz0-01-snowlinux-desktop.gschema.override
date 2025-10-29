@@ -1,0 +1,5 @@
+[org.gnome.shell] 
+enabled-extensions=['logomenu@aryan_k', 'appindicatorsupport@rgcjonas.gmail.com', 'hotedge@jonathan.jdoda.ca']
+
+[org.gnome.desktop.interface]
+enable-hot-corners=false
