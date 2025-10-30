@@ -1,6 +1,6 @@
 [submodule "mkosi.extra/usr/share/gnome-shell/extensions/logomenu@aryan_k"]
-	path = mkosi.extra/usr/share/gnome-shell/extensions/logomenu@aryan_k
+	path = mkosi.extra.common/usr/share/gnome-shell/extensions/logomenu@aryan_k
 	url = https://github.com/linuxsnow/Logomenu.git
 [submodule "mkosi.extra/usr/share/gnome-shell/extensions/hotedge@jonathan.jdoda.ca"]
-	path = mkosi.extra/usr/share/gnome-shell/extensions/hotedge@jonathan.jdoda.ca
+	path = mkosi.extra.common/usr/share/gnome-shell/extensions/hotedge@jonathan.jdoda.ca
 	url = https://github.com/linuxsnow/hotedge.git

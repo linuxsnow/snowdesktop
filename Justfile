@@ -23,3 +23,9 @@ launch:
 snowctl:
   cd snowctl && go build -o snowctl .
 
+main:
+  git checkout main
+  git pull --recurse-submodules
+
+dev branch:
+  git checkout -b {{branch}}
