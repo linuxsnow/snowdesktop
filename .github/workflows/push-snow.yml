@@ -49,6 +49,9 @@ jobs:
           cp $HOME/secrets/mkosi.key .
           chmod 600 ./mkosi.key
           mkosi -B
+      - name: build live
+        run: |
+          mkosi -profile=obs,live --image-id=SnowLive build
       - name: clean up output
         run: |
           rm -f mkosi.output/initrd
