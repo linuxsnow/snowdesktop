@@ -43,3 +43,5 @@ jobs:
           cp $HOME/secrets/mkosi.key .
           chmod 600 ./mkosi.key
           mkosi -B
+          mkosi -profile=obs,live --image-id=SnowLive build
+

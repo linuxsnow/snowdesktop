@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo $IMAGE_ID
+echo $IMAGE_VERSION
+echo $ARCHITECTURE
+
+cp "${OUTPUTDIR}/${IMAGE_ID}_${IMAGE_VERSION}_${ARCHITECTURE}.raw" $SRCDIR/outputs/
