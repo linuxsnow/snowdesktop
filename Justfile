@@ -1,14 +1,17 @@
 # Default recipe
 default: build
 
-build: snowctl
+build:
   mkosi build
+  mkosi --profile=obs,live --image-id=SnowLive build
 
-force: snowctl
-  mkosi build -f
+force:
+  mkosi build -ff
+  mkosi --profile=obs,live --image-id=SnowLive build
 
 build-compress: snowctl
   mkosi build --compress-output=yes
+  mkosi --compress-output=yes --profile=obs,live --image-id=SnowLive build
 
 bump:
   mkosi bump
@@ -20,8 +23,6 @@ clean:
 launch:
   ./scripts/launch-incus.sh
 
-snowctl:
-  cd snowctl && go build -o snowctl .
 
 main:
   git checkout main
