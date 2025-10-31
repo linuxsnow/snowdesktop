@@ -32,3 +32,5 @@ fi
 if [[ -f /usr/lib/os-release ]]; then
     sed -i 's/^PRETTY_NAME=.*/PRETTY_NAME="SNOW Linux"/' /usr/lib/os-release
 fi
+
+locale-gen
