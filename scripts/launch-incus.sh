@@ -47,8 +47,7 @@ echo "When the repart is complete, enter 'systemctl poweroff'"
 # this blocks until secure boot enrollment is complete
 incus console --type=vga "$instance_name"
 
-sleep 2
-incus console --type=vga "$instance_name"
+
 
 echo "reconfiguring instance..."
 sleep 3
