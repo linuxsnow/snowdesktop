@@ -22,7 +22,7 @@ hooks:
             # can be "destructive" or "suggested" or omit for no
             # styling
             style: suggested
-    shell: exec /usr/libexec/bazaar/vscode-hook.sh
+    shell: exec /usr/libexec/vscode-hook.sh
   - id: handle-jetbrains
     when: before-transaction
     dialogs:
@@ -47,4 +47,4 @@ hooks:
             # can be "destructive" or "suggested" or omit for no
             # styling
             style: suggested
-    shell: exec /usr/libexec/bazaar/jetbrains-hook.sh
+    shell: exec /usr/libexec/jetbrains-hook.sh
