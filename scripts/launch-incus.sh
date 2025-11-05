@@ -26,7 +26,7 @@ echo "Creating instance $instance_name from image file $abs_image_file"
 incus init "$instance_name" --empty --vm
 incus config device override "$instance_name" root size=50GiB
 incus config set "$instance_name" limits.cpu=4 limits.memory=8GiB
-incus config set "$instance_name" security.secureboot=false
+incus config set "$instance_name" security.secureboot=true
 incus config device add "$instance_name" vtpm tpm
 incus config device add "$instance_name" install disk source="$abs_image_file" boot.priority=90
 incus start "$instance_name"
@@ -46,6 +46,7 @@ echo "When the repart is complete, enter 'systemctl poweroff'"
 
 # this blocks until secure boot enrollment is complete
 incus console --type=vga "$instance_name"
+sleep 5
 
 
 
