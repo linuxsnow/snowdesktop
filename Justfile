@@ -2,6 +2,9 @@
 default: build
 
 build:
+  mkdir -p mkosi.extra.common/boot/EFI/
+  openssl x509 -in mkosi.crt -out mkosi.extra.common/boot/EFI/mkosi.der -outform DER
+
   mkosi build
   mkosi --profile=obs,live --image-id=SnowLive build
 

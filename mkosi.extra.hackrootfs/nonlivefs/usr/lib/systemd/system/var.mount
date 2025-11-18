@@ -1,0 +1,13 @@
+[Unit]
+DefaultDependencies=no
+Requires=var.mount
+After=var.mount
+Before=local-fs.target sysinit.target
+
+[Mount]
+What=PARTLABEL=SnowLinux-var
+Where=/var
+Options=rw
+
+[Install]
+WantedBy=local-fs.target
