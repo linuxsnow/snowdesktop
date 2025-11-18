@@ -9,7 +9,7 @@ force:
   mkosi build -ff
   mkosi --profile=obs,live --image-id=SnowLive build
 
-build-compress: snowctl
+build-compress:
   mkosi build --compress-output=yes
   mkosi --compress-output=yes --profile=obs,live --image-id=SnowLive build
 
